@@ -1,0 +1,40 @@
+---
+- name: Create backup folder.
+  file:
+    path: "{{ backup_path }}"
+    state: directory
+    owner: "{{ backup_user }}"
+    group: "{{ backup_user }}"
+    mode: 0775
+
+- name: Copy backup script to server.
+  template:
+    src: backups.sh.j2
+    dest: "{{ backup_path }}/backups.sh"
+    owner: "{{ backup_user }}"
+    group: "{{ backup_user }}"
+    mode: 0744
+
+- name: Copy excludes file to server.
+  template:
+    src: backups-exclude.txt.j2
+    dest: "{{ backup_path }}/backups-exclude.txt"
+    owner: "{{ backup_user }}"
+    group: "{{ backup_user }}"
+    mode: 0644
+
+- name: Create backup cron job.
+  cron:
+    name: "Backups Cron Job"
+    minute: "{{ backup_minute }}"
+    hour: "{{ backup_hour }}"
+    user: "{{ backup_user }}"
+    job: "{{ backup_path }}/backups.sh"
+    state: "{{ backup_cron_job_state }}"
+
+- include: databases.yml
+  when: backup_mysql
+
+# TODO: Add to known_hosts?
+# http://docs.ansible.com/ansible/known_hosts_module.html
+# SEE: files/known_hosts

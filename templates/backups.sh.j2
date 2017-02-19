@@ -1,0 +1,36 @@
+#!/bin/bash
+#
+{{ ansible_managed }}
+#
+# Backups for simple servers - shell script.
+#
+# @author Jeff Geerling, 2014, 2017
+
+# Common variables.
+REMOTE="{{ backup_remote_connection }}"
+HOME={{ backup_home }}
+RSYNC=/usr/bin/rsync
+
+# Backup individual directories.
+{% for directory in backup_directories %}
+$RSYNC -aqz -e "ssh" --delete --exclude-from '{{ backup_path }}/backups-exclude.txt' {{ directory }} $REMOTE:~/backups/{{ backup_identifier }}
+{% endfor %}
+
+{% if backup_mysql %}
+# MySQL variables.
+MYSQL=/usr/bin/mysql
+MYSQLDUMP=/usr/bin/mysqldump
+MYSQL_USER={{ backup_mysql_user }}
+MYSQL_PASS={{ backup_mysql_password }}
+
+# Dump all MySQL databases.
+DATABASES=`$MYSQL -u $MYSQL_USER -p$MYSQL_PASS -e "SHOW DATABASES;" | grep -Ev '(Database|information_schema|performance_schema|mysql)'`
+for DB in $DATABASES
+do
+  # Dump the database with mysqldump (piped through gzip to conserve IO).
+  $MYSQLDUMP -u $MYSQL_USER -p$MYSQL_PASS --single-transaction --quick --lock-tables=false $DB | gzip -f -6 > $HOME/backups/databases/$DB.sql.gz
+done
+
+# Sync the databases directory.
+$RSYNC -aqz -e "ssh" $HOME/backups/databases $REMOTE:~/backups/{{ backup_identifier }}
+{% endif %}

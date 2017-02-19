@@ -1,0 +1,32 @@
+---
+# Backup cron job options.
+backup_cron_job_state: present
+backup_hour: "3"
+backup_minute: "00"
+
+# User under which backup jobs will run.
+backup_user: user
+
+# Home directory and path to where backups configuration will be stored.
+backup_home: /home/user
+backup_path: /home/user/backups
+
+# Directories to back up. {{ backup_user }} must have read access to these dirs.
+backup_directories:
+  - /home/user/domains
+  - /home/user/repositories
+
+# Items to exclude from backups. (Use rsync 'excludes' file syntax.)
+backup_exclude_items:
+  - .DS_Store
+  - cache
+  - tmp
+
+# Options to control where the backup is delivered.
+backup_identifier: id_here
+backup_remote_connection: user@backup.example.com
+
+# MySQL database backup options.
+backup_mysql: true
+backup_mysql_user: dbdump
+backup_mysql_password: password

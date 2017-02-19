@@ -1,4 +1,4 @@
-# Ansible Role: Backups for Simple Servers
+# Ansible Role: Backup for Simple Servers
 
 [![Build Status](https://travis-ci.org/geerlingguy/ansible-role-backups.svg?branch=master)](https://travis-ci.org/geerlingguy/ansible-role-backups)
 
@@ -26,7 +26,7 @@ None.
         TODO: TODO.
     
       roles:
-        - geerlingguy.backups
+        - geerlingguy.backup
 
 ## License
 

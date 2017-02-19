@@ -5,16 +5,16 @@ backup_hour: "3"
 backup_minute: "00"
 
 # User under which backup jobs will run.
-backup_user: user
+backup_user: "{{ ansible_ssh_user }}"
 
 # Home directory and path to where backups configuration will be stored.
-backup_home: /home/user
-backup_path: /home/user/backups
+backup_home: /home/{{ backup_user }}
+backup_path: /home/{{ backup_user }}/backups
 
 # Directories to back up. {{ backup_user }} must have read access to these dirs.
 backup_directories:
-  - /home/user/domains
-  - /home/user/repositories
+  - /home/{{ backup_user }}/domains
+  - /home/{{ backup_user }}/repositories
 
 # Items to exclude from backups. (Use rsync 'excludes' file syntax.)
 backup_exclude_items:

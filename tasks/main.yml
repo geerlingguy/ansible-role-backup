@@ -1,5 +1,5 @@
 ---
-- name: Create backup folder.
+- name: Ensure backup folder exists.
   file:
     path: "{{ backup_path }}"
     state: directory
@@ -23,9 +23,9 @@
     group: "{{ backup_user }}"
     mode: 0644
 
-- name: Create backup cron job.
+- name: Configure backup cron job.
   cron:
-    name: "Backup Cron Job"
+    name: "Backup cron job"
     minute: "{{ backup_minute }}"
     hour: "{{ backup_hour }}"
     user: "{{ backup_user }}"
@@ -34,7 +34,3 @@
 
 - include: databases.yml
   when: backup_mysql
-
-# TODO: Add to known_hosts?
-# http://docs.ansible.com/ansible/known_hosts_module.html
-# SEE: files/known_hosts

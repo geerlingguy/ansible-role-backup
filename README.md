@@ -6,7 +6,12 @@ Back up Linux servers with a simple Rsync-and-Cron-based solution.
 
 ## Requirements
 
-None.
+Requires the following to be installed:
+
+  - rsync
+  - cron
+
+MySQL or a MySQL-compatible database needs to be installed if you'd like to enable MySQL database backups.
 
 ## Role Variables
 

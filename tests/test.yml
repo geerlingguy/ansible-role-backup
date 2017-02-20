@@ -16,4 +16,5 @@
       when: ansible_os_family == 'Debian'
 
   roles:
+    - geerlingguy.mysql
     - role_under_test

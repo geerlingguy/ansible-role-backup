@@ -1,6 +1,6 @@
 # Ansible Role: Backup for Simple Servers
 
-[![Build Status](https://travis-ci.org/geerlingguy/ansible-role-backups.svg?branch=master)](https://travis-ci.org/geerlingguy/ansible-role-backups)
+[![Build Status](https://travis-ci.org/geerlingguy/ansible-role-backup.svg?branch=master)](https://travis-ci.org/geerlingguy/ansible-role-backup)
 
 Back up Linux servers with a simple Rsync-and-Cron-based solution.
 

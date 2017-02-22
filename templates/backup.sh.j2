@@ -13,7 +13,7 @@ RSYNC=/usr/bin/rsync
 
 # Backup individual directories.
 {% for directory in backup_directories %}
-$RSYNC -aqz -e "ssh" --delete --exclude-from '{{ backup_path }}/backup-exclude.txt' {{ directory }} $REMOTE:~/backups/{{ backup_identifier }}
+$RSYNC -aqz -e "ssh" --delete --exclude-from '{{ backup_path }}/backup-exclude.txt' {{ directory }} $REMOTE:{{ backup_remote_base_path }}/{{ backup_identifier }}
 {% endfor %}
 
 {% if backup_mysql %}

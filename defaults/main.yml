@@ -25,6 +25,7 @@ backup_exclude_items:
 # Options to control where the backup is delivered.
 backup_identifier: id_here
 backup_remote_connection: user@backup.example.com
+backup_remote_base_path: "~/backups"
 
 # MySQL database backup options.
 backup_mysql: true

@@ -56,6 +56,11 @@ Options to control where the backup is delivered. It's assumed you'll be routing
 
 The full path on the remote backup server where backups will be stored (all backups for each server are inside a directory named by the `backup_identifier`).
 
+    backup_remote_host_name: ''
+    backup_remote_host_key: ''
+
+Add the remote host key details to ensure the host key is present and there are no SSH connection errors based on the key authentication. Leave blank if you've disabled host key checking or if the host key is already added to the server via some other mechanism.
+
     backup_mysql: true
     backup_mysql_user: dbdump
     backup_mysql_password: password

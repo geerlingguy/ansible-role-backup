@@ -61,6 +61,10 @@ The full path on the remote backup server where backups will be stored (all back
 
 Add the remote host key details to ensure the host key is present and there are no SSH connection errors based on the key authentication. Leave blank if you've disabled host key checking or if the host key is already added to the server via some other mechanism.
 
+    backup_remote_connection_ssh_options: ''
+
+Options to configure SSH connection options such as port (`-p port`). See [SSH manpages](http://man.openbsd.org/ssh) for more options.
+
     backup_mysql: true
     backup_mysql_user: dbdump
     backup_mysql_password: password

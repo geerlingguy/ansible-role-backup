@@ -13,7 +13,7 @@ RSYNC=/usr/bin/rsync
 
 # Backup individual directories.
 {% for directory in backup_directories %}
-$RSYNC -aqz -e "ssh" --delete --exclude-from '{{ backup_path }}/backup-exclude.txt' {{ directory }} $REMOTE:{{ backup_remote_base_path }}/{{ backup_identifier }}
+$RSYNC -aqz -e 'ssh {{ backup_remote_connection_ssh_options }}' --delete --exclude-from '{{ backup_path }}/backup-exclude.txt' {{ directory }} $REMOTE:{{ backup_remote_base_path }}/{{ backup_identifier }}
 {% endfor %}
 
 {% if backup_mysql %}
@@ -32,5 +32,5 @@ do
 done
 
 # Sync the databases directory.
-$RSYNC -aqz -e "ssh" $HOME/backups/databases $REMOTE:~/backups/{{ backup_identifier }}
+$RSYNC -aqz -e 'ssh {{ backup_remote_connection_ssh_options }}' $HOME/backups/databases $REMOTE:~/backups/{{ backup_identifier }}
 {% endif %}

@@ -63,7 +63,7 @@ Add the remote host key details to ensure the host key is present and there are 
 
     backup_remote_connection_ssh_options: ''
 
-Options to configure SSH connection options such as port (`-p port`). See [SSH manpages](http://man.openbsd.org/ssh) for more options.
+Add SSH connection options (e.g. `-p [port]`), as documented in the [SSH command manual](http://man.openbsd.org/ssh).
 
     backup_mysql: true
     backup_mysql_user: dbdump

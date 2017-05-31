@@ -5,10 +5,9 @@ backup_hour: "3"
 backup_minute: "00"
 
 # User under which backup jobs will run.
-backup_user: "{{ ansible_ssh_user }}"
+backup_user: "{{ ansible_env.SUDO_USER | default(ansible_env.USER, true) | default(ansible_user_id, true) }}"
 
-# Home directory and path to where backups configuration will be stored.
-backup_home: /home/{{ backup_user }}
+# Path to where backups configuration will be stored.
 backup_path: /home/{{ backup_user }}/backups
 
 # Directories to back up. {{ backup_user }} must have read access to these dirs.

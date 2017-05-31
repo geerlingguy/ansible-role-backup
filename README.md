@@ -25,14 +25,13 @@ Available variables are listed below, along with default values (see `defaults/m
 
 Controls whether the backup script is called via a managed cron job. You should stagger backup times among servers so your backup server doesn't get a huge influx of data at once.
 
-    backup_user: "{{ ansible_ssh_user }}"
+    backup_user: "{{ ansible_env.SUDO_USER | default(ansible_env.USER, true) | default(ansible_user_id, true) }}"
 
 User under which backup jobs will run.
 
-    backup_home: /home/{{ backup_user }}
     backup_path: /home/{{ backup_user }}/backups
 
-Home directory and path to where backups configuration will be stored. Generally speaking, you should use a special backup user account, but you can set this to whatever account has the proper access to the directories you need to back up.
+Path to where backups configuration will be stored. Generally speaking, you should use a special backup user account, but you can set this to whatever account has the proper access to the directories you need to back up.
 
     backup_directories:
       - /home/{{ backup_user }}/domains

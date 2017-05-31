@@ -8,7 +8,6 @@
 
 # Common variables.
 REMOTE="{{ backup_remote_connection }}"
-HOME={{ backup_home }}
 RSYNC=/usr/bin/rsync
 
 # Backup individual directories.
@@ -28,9 +27,9 @@ DATABASES=`$MYSQL -u $MYSQL_USER -p$MYSQL_PASS -e "SHOW DATABASES;" | grep -Ev '
 for DB in $DATABASES
 do
   # Dump the database with mysqldump (piped through gzip to conserve IO).
-  $MYSQLDUMP -u $MYSQL_USER -p$MYSQL_PASS --single-transaction --quick --lock-tables=false $DB | gzip -f -6 > $HOME/backups/databases/$DB.sql.gz
+  $MYSQLDUMP -u $MYSQL_USER -p$MYSQL_PASS --single-transaction --quick --lock-tables=false $DB | gzip -f -6 > {{ backup_path }}/databases/$DB.sql.gz
 done
 
 # Sync the databases directory.
-$RSYNC -aqz -e 'ssh {{ backup_remote_connection_ssh_options }}' $HOME/backups/databases $REMOTE:~/backups/{{ backup_identifier }}
+$RSYNC -aqz -e 'ssh {{ backup_remote_connection_ssh_options }}' {{ backup_path }}/databases $REMOTE:{{ backup_remote_base_path }}/{{ backup_identifier }}
 {% endif %}

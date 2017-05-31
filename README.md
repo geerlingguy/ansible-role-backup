@@ -67,8 +67,10 @@ Add SSH connection options (e.g. `-p [port]`), as documented in the [SSH command
     backup_mysql: true
     backup_mysql_user: dbdump
     backup_mysql_password: password
+    backup_mysql_credential_file: ''
 
 Options for backing up MySQL (or MySQL-compatible) databases. Note the `ansible_ssh_user` used when running this role must be able to add MySQL users for this functionality to be managed by this role.
+Instead of creating a new MySQL user account you can provide an existing one using `backup_mysql_credential_file` an option file as documented in the [End-User Guidelines for Password Security](https://dev.mysql.com/doc/refman/5.7/en/password-security-user.html).
 
 ## Dependencies
 

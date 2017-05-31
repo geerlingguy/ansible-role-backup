@@ -19,15 +19,18 @@ $RSYNC -aqz -e 'ssh {{ backup_remote_connection_ssh_options }}' --delete --exclu
 # MySQL variables.
 MYSQL=/usr/bin/mysql
 MYSQLDUMP=/usr/bin/mysqldump
-MYSQL_USER={{ backup_mysql_user }}
-MYSQL_PASS={{ backup_mysql_password }}
+{% if backup_mysql_credential_file != '' %}
+MYSQL_CREDENTIALS="--defaults-extra-file={{ backup_mysql_credential_file }}"
+{% else %}
+MYSQL_CREDENTIALS= "-u {{ backup_mysql_user }} -p{{ backup_mysql_password }}"
+{% endif %}
 
 # Dump all MySQL databases.
-DATABASES=`$MYSQL -u $MYSQL_USER -p$MYSQL_PASS -e "SHOW DATABASES;" | grep -Ev '(Database|information_schema|performance_schema|mysql)'`
+DATABASES=`$MYSQL $MYSQL_CREDENTIALS -e "SHOW DATABASES;" | grep -Ev '(Database|information_schema|performance_schema|mysql)'`
 for DB in $DATABASES
 do
   # Dump the database with mysqldump (piped through gzip to conserve IO).
-  $MYSQLDUMP -u $MYSQL_USER -p$MYSQL_PASS --single-transaction --quick --lock-tables=false $DB | gzip -f -6 > {{ backup_path }}/databases/$DB.sql.gz
+  $MYSQLDUMP $MYSQL_CREDENTIALS --single-transaction --quick --lock-tables=false $DB | gzip -f -6 > {{ backup_path }}/databases/$DB.sql.gz
 done
 
 # Sync the databases directory.

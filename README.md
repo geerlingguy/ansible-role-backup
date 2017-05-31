@@ -25,7 +25,7 @@ Available variables are listed below, along with default values (see `defaults/m
 
 Controls whether the backup script is called via a managed cron job. You should stagger backup times among servers so your backup server doesn't get a huge influx of data at once.
 
-    backup_user: "{{ ansible_ssh_user }}"
+    backup_user: "{{ ansible_env.SUDO_USER | default(ansible_env.USER, true) | default(ansible_user_id, true) }}"
 
 User under which backup jobs will run.
 

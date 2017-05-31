@@ -29,10 +29,9 @@ Controls whether the backup script is called via a managed cron job. You should 
 
 User under which backup jobs will run.
 
-    backup_home: /home/{{ backup_user }}
     backup_path: /home/{{ backup_user }}/backups
 
-Home directory and path to where backups configuration will be stored. Generally speaking, you should use a special backup user account, but you can set this to whatever account has the proper access to the directories you need to back up.
+Path to where backups configuration will be stored. Generally speaking, you should use a special backup user account, but you can set this to whatever account has the proper access to the directories you need to back up.
 
     backup_directories:
       - /home/{{ backup_user }}/domains

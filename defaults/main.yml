@@ -36,3 +36,4 @@ backup_remote_host_key: ''
 backup_mysql: true
 backup_mysql_user: dbdump
 backup_mysql_password: password
+backup_mysql_credential_file: ''

@@ -22,8 +22,10 @@ MYSQLDUMP=/usr/bin/mysqldump
 {% if backup_mysql_credential_file != '' %}
 MYSQL_CREDENTIALS="--defaults-extra-file={{ backup_mysql_credential_file }}"
 {% else %}
-MYSQL_CREDENTIALS= "-u {{ backup_mysql_user }} -p{{ backup_mysql_password }}"
+MYSQL_CREDENTIALS="-u {{ backup_mysql_user }} -p{{ backup_mysql_password }}"
 {% endif %}
+
+mkdir {{ backup_path }}/databases
 
 # Dump all MySQL databases.
 DATABASES=`$MYSQL $MYSQL_CREDENTIALS -e "SHOW DATABASES;" | grep -Ev '(Database|information_schema|performance_schema|mysql)'`

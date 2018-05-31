@@ -12,7 +12,7 @@ RSYNC=/usr/bin/rsync
 
 # Backup individual directories.
 {% for directory in backup_directories %}
-$RSYNC -aqz -e 'ssh {{ backup_remote_connection_ssh_options }}' --delete --exclude-from '{{ backup_path }}/backup-exclude.txt' {{ directory }} $REMOTE:{{ backup_remote_base_path }}/{{ backup_identifier }}
+$RSYNC -aqz -e '/usr/bin/ssh {{ backup_remote_connection_ssh_options }}' --delete --exclude-from '{{ backup_path }}/backup-exclude.txt' {{ directory }} $REMOTE:{{ backup_remote_base_path }}/{{ backup_identifier }}
 {% endfor %}
 
 {% if backup_mysql %}
@@ -25,7 +25,7 @@ MYSQL_CREDENTIALS="--defaults-extra-file={{ backup_mysql_credential_file }}"
 MYSQL_CREDENTIALS="-u {{ backup_mysql_user }} -p{{ backup_mysql_password }}"
 {% endif %}
 
-mkdir {{ backup_path }}/databases
+mkdir -p {{ backup_path }}/databases
 
 # Dump all MySQL databases.
 DATABASES=`$MYSQL $MYSQL_CREDENTIALS -e "SHOW DATABASES;" | grep -Ev '(Database|information_schema|performance_schema|mysql)'`
@@ -36,5 +36,5 @@ do
 done
 
 # Sync the databases directory.
-$RSYNC -aqz -e 'ssh {{ backup_remote_connection_ssh_options }}' {{ backup_path }}/databases $REMOTE:{{ backup_remote_base_path }}/{{ backup_identifier }}
+$RSYNC -aqz -e '/usr/bin/ssh {{ backup_remote_connection_ssh_options }}' {{ backup_path }}/databases $REMOTE:{{ backup_remote_base_path }}/{{ backup_identifier }}
 {% endif %}

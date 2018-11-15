@@ -17,4 +17,4 @@
     - "127.0.0.1"
     - "::1"
     - "localhost"
-  when: not backup_mysql_credential_file
+  when: backup_mysql_credential_file == ''

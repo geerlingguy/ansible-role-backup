@@ -1,3 +1,2 @@
 *.retry
-*/__pycache__
-*.pyc
+tests/test.sh

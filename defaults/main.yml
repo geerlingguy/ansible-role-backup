@@ -24,7 +24,6 @@ backup_exclude_items:
 # Options to control where the backup is delivered.
 backup_identifier: id_here
 backup_remote_connection: user@backup.example.com
-backup_remote_password: ''
 backup_remote_base_path: "~/backups"
 backup_remote_connection_ssh_options: ''
 
@@ -37,5 +36,3 @@ backup_mysql: true
 backup_mysql_user: dbdump
 backup_mysql_password: password
 backup_mysql_credential_file: ''
-
-

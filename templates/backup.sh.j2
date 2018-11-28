@@ -10,9 +10,25 @@
 REMOTE="{{ backup_remote_connection }}"
 RSYNC=/usr/bin/rsync
 
+# Stop the services before backup starts (optional)
+{% for service in stop_services %}
+sudo service stop {{ service }}
+{% endfor %}
+
 # Backup individual directories.
+{% if backup_remote_password != '' %}
+{% for directory in backup_directories %}
+$RSYNC -aqz -e 'sshpass -p  {{ backup_remote_password }} ssh {{ backup_remote_connection_ssh_options }}' --delete --exclude-from '{{ backup_path }}/backup-exclude.txt' {{ directory }} $REMOTE:{{ backup_remote_base_path }}/{{ backup_identifier }}
+{% endfor %}
+{% else %}
 {% for directory in backup_directories %}
 $RSYNC -aqz -e 'ssh {{ backup_remote_connection_ssh_options }}' --delete --exclude-from '{{ backup_path }}/backup-exclude.txt' {{ directory }} $REMOTE:{{ backup_remote_base_path }}/{{ backup_identifier }}
+{% endfor %}
+{% endif %}
+
+# Start the services after backup is finished (optional)
+{% for service in stop_services %}
+sudo service start {{ service }}
 {% endfor %}
 
 {% if backup_mysql %}

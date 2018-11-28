@@ -10,6 +10,7 @@ Requires the following to be installed:
 
   - rsync
   - cron
+  - sshpass
 
 MySQL or a MySQL-compatible database needs to be installed if you'd like to enable MySQL database backups.
 
@@ -63,6 +64,14 @@ Add the remote host key details to ensure the host key is present and there are 
     backup_remote_connection_ssh_options: ''
 
 Add SSH connection options (e.g. `-p [port]`), as documented in the [SSH command manual](http://man.openbsd.org/ssh).
+
+    backup_remote_password: ''
+
+Password based authentication for remote connection
+
+    stop_services: []
+
+List of services to be stopped before backup and start after backup is finished. Useful to avoild file locks.
 
     backup_mysql: true
     backup_mysql_user: dbdump

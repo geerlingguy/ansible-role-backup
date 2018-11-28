@@ -1,49 +1,50 @@
----
-- name: Install package
-  package:
+--- 
+- 
+  name: "Install package"
+  package: 
     name: "{{ item }}"
     state: latest
-  with_items: '{{ packages }}' 
-
-- name: Ensure backup folder exists.
-  file:
+  with_items: "{{ packages }}"
+- 
+  file: 
+    group: "{{ backup_user }}"
+    mode: 509
+    owner: "{{ backup_user }}"
     path: "{{ backup_path }}"
     state: directory
-    owner: "{{ backup_user }}"
-    group: "{{ backup_user }}"
-    mode: 0775
-
-- name: Copy backup script to server.
-  template:
-    src: backup.sh.j2
+  name: "Ensure backup folder exists."
+- 
+  name: "Copy backup script to server."
+  template: 
     dest: "{{ backup_path }}/backup.sh"
-    owner: "{{ backup_user }}"
     group: "{{ backup_user }}"
-    mode: 0744
-
-- name: Copy excludes file to server.
-  template:
-    src: backup-exclude.txt.j2
+    mode: 484
+    owner: "{{ backup_user }}"
+    src: backup.sh.j2
+- 
+  name: "Copy excludes file to server."
+  template: 
     dest: "{{ backup_path }}/backup-exclude.txt"
-    owner: "{{ backup_user }}"
     group: "{{ backup_user }}"
-    mode: 0644
-
-- name: Configure backup cron job.
-  cron:
-    name: "Backup cron job"
-    minute: "{{ backup_minute }}"
+    mode: 420
+    owner: "{{ backup_user }}"
+    src: backup-exclude.txt.j2
+- 
+  cron: 
     hour: "{{ backup_hour }}"
-    user: "{{ backup_user }}"
     job: "{{ backup_path }}/backup.sh"
+    minute: "{{ backup_minute }}"
+    name: "Backup cron job"
     state: "{{ backup_cron_job_state }}"
-
-- name: Add backup remote host key to server.
-  known_hosts:
-    path: "/etc/ssh/ssh_known_hosts"
-    name: "{{ backup_remote_host_name }}"
+    user: "{{ backup_user }}"
+  name: "Configure backup cron job."
+- 
+  known_hosts: 
     key: "{{ backup_remote_host_name }} {{ backup_remote_host_key }}"
-  when: (backup_remote_host_name != '') and (backup_remote_host_key != '')
-
-- include: databases.yml
+    name: "{{ backup_remote_host_name }}"
+    path: /etc/ssh/ssh_known_hosts
+  name: "Add backup remote host key to server."
+  when: "(backup_remote_host_name != '') and (backup_remote_host_key != '')"
+- 
+  include: databases.yml
   when: backup_mysql

@@ -1,8 +1,7 @@
----
-# Include variables and define needed variables.
-- name: Include OS-specific variables.
+--- 
+- 
   include_vars: "{{ ansible_os_family }}.yml"
-
-# Setup/install tasks.
-- include_tasks: "setup.yml"
+  name: "Include OS-specific variables."
+- 
+  include_tasks: setup.yml
 

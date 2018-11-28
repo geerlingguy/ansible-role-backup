@@ -1,6 +1,5 @@
----
+--- 
 packages: 
   - sshpass
-  - rsync 
-
+  - rsync
 stop_services: []

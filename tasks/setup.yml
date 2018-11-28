@@ -1,36 +1,36 @@
---- 
-- 
+---
+-
   name: "Install package"
-  package: 
+  package:
     name: "{{ item }}"
     state: latest
   with_items: "{{ packages }}"
-- 
-  file: 
+-
+  file:
     group: "{{ backup_user }}"
     mode: 509
     owner: "{{ backup_user }}"
     path: "{{ backup_path }}"
     state: directory
   name: "Ensure backup folder exists."
-- 
+-
   name: "Copy backup script to server."
-  template: 
+  template:
     dest: "{{ backup_path }}/backup.sh"
     group: "{{ backup_user }}"
     mode: 484
     owner: "{{ backup_user }}"
     src: backup.sh.j2
-- 
+-
   name: "Copy excludes file to server."
-  template: 
+  template:
     dest: "{{ backup_path }}/backup-exclude.txt"
     group: "{{ backup_user }}"
     mode: 420
     owner: "{{ backup_user }}"
     src: backup-exclude.txt.j2
-- 
-  cron: 
+-
+  cron:
     hour: "{{ backup_hour }}"
     job: "{{ backup_path }}/backup.sh"
     minute: "{{ backup_minute }}"
@@ -38,13 +38,13 @@
     state: "{{ backup_cron_job_state }}"
     user: "{{ backup_user }}"
   name: "Configure backup cron job."
-- 
-  known_hosts: 
+-
+  known_hosts:
     key: "{{ backup_remote_host_name }} {{ backup_remote_host_key }}"
     name: "{{ backup_remote_host_name }}"
     path: /etc/ssh/ssh_known_hosts
   name: "Add backup remote host key to server."
   when: "(backup_remote_host_name != '') and (backup_remote_host_key != '')"
-- 
+-
   include: databases.yml
   when: backup_mysql

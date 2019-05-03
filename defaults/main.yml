@@ -25,14 +25,14 @@ backup_exclude_items:
 backup_identifier: id_here
 backup_remote_connection: user@backup.example.com
 backup_remote_base_path: "~/backups"
-backup_remote_connection_ssh_options: ''
+backup_remote_connection_ssh_options: null
 
 # Add your server's host key to ensure seamless backup functionality.
-backup_remote_host_name: ''
-backup_remote_host_key: ''
+backup_remote_host_name: null
+backup_remote_host_key: null
 
 # MySQL database backup options.
 backup_mysql: true
 backup_mysql_user: dbdump
 backup_mysql_password: password
-backup_mysql_credential_file: ''
+backup_mysql_credential_file: null

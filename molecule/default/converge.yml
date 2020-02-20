@@ -3,6 +3,9 @@
   hosts: all
   become: true
 
+  vars:
+    mysql_python_package_debian: python3-mysqldb
+
   pre_tasks:
     - name: Update apt cache.
       apt: update_cache=yes cache_valid_time=600

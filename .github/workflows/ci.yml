@@ -44,7 +44,6 @@ jobs:
         distro:
           - centos8
           - ubuntu1804
-          - debian10
 
     steps:
       - name: Check out the codebase.

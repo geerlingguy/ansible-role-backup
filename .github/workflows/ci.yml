@@ -43,7 +43,7 @@ jobs:
       matrix:
         distro:
           - centos8
-          - ubuntu2004
+          - ubuntu1804
           - debian10
 
     steps:

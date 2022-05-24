@@ -41,5 +41,5 @@
     - backup_remote_host_name
     - backup_remote_host_key
 
-- include: databases.yml
+- include_tasks: databases.yml
   when: backup_mysql

@@ -32,7 +32,7 @@ backup_remote_host_name: ''
 backup_remote_host_key: ''
 
 # MySQL database backup options.
-backup_mysql: true
+backup_mysql: false
 backup_mysql_user: dbdump
 backup_mysql_password: password
 backup_mysql_credential_file: ''

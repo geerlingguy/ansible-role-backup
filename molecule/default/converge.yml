@@ -23,4 +23,5 @@
 
   roles:
     - geerlingguy.mysql
+    - geerlingguy.pip
     - geerlingguy.ansible

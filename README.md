@@ -1,6 +1,6 @@
 # Ansible Role: Backup for Simple Servers
 
-[![CI](https://github.com/geerlingguy/ansible-role-backup/workflows/CI/badge.svg?event=push)](https://github.com/geerlingguy/ansible-role-backup/actions?query=workflow%3ACI)
+[![CI](https://github.com/geerlingguy/ansible-role-backup/actions/workflows/ci.yml/badge.svg)](https://github.com/geerlingguy/ansible-role-backup/actions/workflows/ci.yml)
 
 Back up Linux servers with a simple Rsync-and-Cron-based solution.
 

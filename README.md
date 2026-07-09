@@ -12,6 +12,8 @@ Requires the following to be installed:
   - cron
 
 MySQL or a MySQL-compatible database needs to be installed if you'd like to enable MySQL database backups.
+If `backup_mysql` is enabled in an `ansible-core` environment, install the
+`community.mysql` collection first.
 
 It's also assumed you have a server running somewhere that can accept backup data via Rsync, and on this backup server, you need to install `rsync`, and configure accounts with SSH authentication that allows this role to deliver backups to a specific directory via SSH.
 

@@ -8,7 +8,7 @@
     mode: 0775
 
 - name: Create MySQL user for DB Dumps.
-  mysql_user:
+  community.mysql.mysql_user:
     name: "{{ backup_mysql_user }}"
     host: "{{ item }}"
     priv: "*.*:SELECT"
